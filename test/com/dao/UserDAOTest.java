@@ -16,10 +16,16 @@ public class UserDAOTest {
 		ArrayList<User> usersList = UserDAO.getAllUsers();
 		Iterator<User> usersListIterator = usersList.iterator();
 		User eachUser;
-        while(usersListIterator.hasNext()){
-        	eachUser = (User) usersListIterator.next();
-            System.out.println(eachUser);
-        }
+		while (usersListIterator.hasNext()) {
+			eachUser = (User) usersListIterator.next();
+			System.out.println(eachUser);
+		}
+	}
+
+	@Test
+	public void testGetUserById() {
+		//sysout user info whose id=2.
+		System.out.println(UserDAO.getUserById(2));
 	}
 
 }
