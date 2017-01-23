@@ -22,9 +22,11 @@ public class UserDAOTest {
 		}
 	}
 
+	/**
+	 * sysout user info whose id=2.
+	 */
 	@Test
 	public void testGetUserById() {
-		//sysout user info whose id=2.
 		System.out.println(UserDAO.getUserById(2));
 	}
 

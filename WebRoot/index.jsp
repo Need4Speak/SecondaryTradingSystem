@@ -55,8 +55,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			Goods eachGood;
 			String[] eachGoodPictures;
 			List<String> goodPicturesList = new ArrayList<String>();
+			// ownerName: Record the owner of the good.
+			int ownerId;
+			String ownerName;
 	        while(goodsListIterator.hasNext()){
 	        	eachGood = (Goods) goodsListIterator.next();
+	        	// Get owner info.
+	        	ownerId = UserOwnGoodsDAO.getUserIdByGoodsId(eachGood.getGoodId());
+	        	ownerName = UserDAO.getUserById(ownerId).getUserName();
 	        	//Ensure each good own 2 pictures.
 	        	eachGoodPictures = eachGood.getGoodPictures().split(", ");
 	        	Collections.addAll(goodPicturesList, eachGoodPictures);
@@ -68,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    %>
 		<table width="250px" height="150px" border="1" cellspacing="0" cellpadding="0">
 		  <tr height="20px">
-		    <td >卖家昵称</td>
+		    <td >卖家昵称:<%=ownerName %></td>
 		    <td>价格:<%=eachGood.getGoodPrice() %></td>
 		  </tr>
 		  <tr>
