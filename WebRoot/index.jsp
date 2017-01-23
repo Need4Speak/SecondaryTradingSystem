@@ -1,4 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
+<%@ page language="java" import="com.entity.*, com.dao.*, java.util.Iterator" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,9 +19,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<style type="text/css">
+		body{ text-align:center} 
+		/* css 注释：这样设置了对象divcss5宽度为300px样式 */ 
+		.divcssTop{
+					width:250px;
+					height:80px;
+					margin: 0 auto;
+  					padding: 0;
+  					background: #FF4040;}
+		.divcssMiddle{
+					width:250px;
+					height:40px;
+					margin: 0 auto;
+  					padding: 0;
+  					background: #FF6A6A;}
+		.divcssBottom{
+					width:250px;
+					margin: 0 auto;
+  					padding: 0;
+  					background: #FAEBD7;}
+	</style>
   </head>
   
   <body>
-    This is my JSP page. <br>
+    <div  class="divcssTop">二手交易网站</div>
+    <div  class="divcssMiddle">
+        <p>最新</p>
+    </div>
+    <div  class="divcssBottom">
+    
+	    <% 
+			ArrayList<Goods> goodsList = GoodsDAO.getAllGoods();
+			Iterator<Goods> goodsListIterator = goodsList.iterator(); 
+			Goods eachGood;
+			String[] eachGoodPictures;
+			List<String> goodPicturesList = new ArrayList<String>();
+	        while(goodsListIterator.hasNext()){
+	        	eachGood = (Goods) goodsListIterator.next();
+	        	//Ensure each good own 2 pictures.
+	        	eachGoodPictures = eachGood.getGoodPictures().split(", ");
+	        	Collections.addAll(goodPicturesList, eachGoodPictures);
+	        	//If the good only have one pictures.
+	        	if(eachGoodPictures.length < 2) {
+	        		goodPicturesList.add("noGoodPictures.jpg");
+	        	}
+	            System.out.println(eachGood);
+	    %>
+		<table width="250px" height="150px" border="1" cellspacing="0" cellpadding="0">
+		  <tr height="20px">
+		    <td >卖家昵称</td>
+		    <td>价格:<%=eachGood.getGoodPrice() %></td>
+		  </tr>
+		  <tr>
+		    <td width="125px"><img src="images/<%=goodPicturesList.get(0)%>" border="0" width="120px" height="90px" /></td>
+		    <td><img src="images/<%=goodPicturesList.get(1)%>" border="0" width="120px" height="90px" /></td>
+		  </tr>
+		  <tr height="50px">
+		    <td colspan="2">商品名:<%=eachGood.getGoodName() %>, 商品详细介绍</td>
+		  </tr>
+		</table>
+		<% 
+			//Remove all items in goodPicturesList, otherwise it can't use normally.
+			goodPicturesList.clear();
+		    }
+	    %>
+    
+    </div>
   </body>
 </html>
