@@ -44,9 +44,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  	<%!
+  		User userLogin = new User();
+  	 %>
+  	<% 
+  		int userIdInSession;
+  		if(session.getAttribute("userId")!=null){
+  			userIdInSession = Integer.parseInt((String)request.getSession().getAttribute("userId"));
+  			// Get log in user's obejct.
+  			userLogin = UserDAO.getUserById(userIdInSession);
+  		}
+  		else {
+  			userIdInSession = -1;
+  		}
+  	%>
+  	<!-- Set jstl var userIdInSession -->
+  	<c:set var="userIdInSession" value="<%=userIdInSession %>"/>
+  	
     <div  class="divcssTop">二手交易网站</div>
     <div  class="divcssMiddle">
-        <p>最新</p>
+        <table width="250px" height="40px" border="1" cellspacing="0" cellpadding="0">
+        	<tr>
+			    <td >最新</td>
+			    <c:choose>
+				    <c:when test="${userIdInSession == -1}">
+				    	<td>登录</td>
+				    </c:when>
+				    <c:otherwise>
+				    	<td><%=userLogin.getUserName() %>已登录，注销</td>
+				    </c:otherwise>
+				</c:choose>
+			    
+		  	</tr>
+        </table>
     </div>
     <div  class="divcssBottom">
     
