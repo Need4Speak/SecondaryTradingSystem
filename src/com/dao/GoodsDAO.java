@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import com.entity.Goods;
 import com.util.DBHelper;
 
+import com.entity.Goods;
+
 /**
  * DAO layer for goods' process. ProjectName：SecondaryTradingSystem
  * ClassName：GoodsDAO ClassDescription： Author：Pancake CreateTime：2017年1月23日
@@ -67,4 +69,51 @@ public class GoodsDAO {
 		}
 	}
 
+	public static Goods getGoodsById(int id) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBHelper.getConnection();
+			String sql = "select * from goods where id=?;";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				Goods good = new Goods();
+				good.setGoodId(rs.getInt("id"));
+				good.setGoodName(rs.getString("name"));
+				good.setGoodPrice(rs.getInt("price"));
+				good.setGoodPictures(rs.getString("pictures"));
+				return good;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			return null;
+			// TODO: handle exception
+		} finally {
+			// 释放数据集对象
+			if (rs != null) {
+				try {
+					rs.close();
+					rs = null;
+				} catch (Exception e2) {
+					e2.printStackTrace();
+					// TODO: handle exception
+				}
+			}
+
+			// 释放语句对象
+			if (stmt != null) {
+				try {
+					stmt.close();
+					stmt = null;
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
 }

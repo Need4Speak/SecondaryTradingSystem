@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@ page language="java" import="com.entity.*, com.dao.*, java.util.Iterator" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -72,6 +73,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	}
 	            System.out.println(eachGood);
 	    %>
+	     
+	    <a href="servlet/OderInfoServlet?goodId=<%=eachGood.getGoodId()%>">    
+	    <!-- 
+	    <a href="goodInfo.jsp?goodId=<%=eachGood.getGoodId()%>">
+	    -->
 		<table width="250px" height="150px" border="1" cellspacing="0" cellpadding="0">
 		  <tr height="20px">
 		    <td >卖家昵称:<%=ownerName %></td>
@@ -85,6 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <td colspan="2">商品名:<%=eachGood.getGoodName() %>, 商品详细介绍</td>
 		  </tr>
 		</table>
+		</a>
 		<% 
 			//Remove all items in goodPicturesList, otherwise it can't use normally.
 			goodPicturesList.clear();

@@ -22,5 +22,10 @@ public class GoodsDAOTest {
             System.out.println(each_good);
         }
 	}
-
+	
+	@Test
+	public void testGetGoodsById(){
+		Goods aGood = GoodsDAO.getGoodsById(2);
+		System.out.println(aGood);
+	}
 }
