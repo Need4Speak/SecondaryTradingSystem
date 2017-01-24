@@ -20,6 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>商品详情</title>
 </head>
 <body>
+	<div>
+		<jsp:include page="userLoginBar.jsp"></jsp:include>
+	</div>
 	<div class="divcssTop">
 		<%
 			Goods good = new Goods();

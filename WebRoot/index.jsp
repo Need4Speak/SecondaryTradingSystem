@@ -43,37 +43,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   
-  <body>
-  	<%!
-  		User userLogin = new User();
-  	 %>
-  	<% 
-  		String userNameInSession;
-  		if(session.getAttribute("userName")!=null){
-  			userNameInSession = (String)request.getSession().getAttribute("userName");
-  			// Get log in user's obejct.
-  			userLogin = UserDAO.getUserByName(userNameInSession);
-  		}
-  		else {
-  			userNameInSession = null;
-  		}
-  	%>
-  	<!-- Set jstl var userNameInSession -->
-  	<c:set var="userNameInSession" value="<%=userNameInSession %>"/>
-  	
+  <body>	
     <div  class="divcssTop">二手交易网站</div>
     <div  class="divcssMiddle">
         <table width="250px" height="40px" border="1" cellspacing="0" cellpadding="0">
         	<tr>
 			    <td >最新</td>
-			    <c:choose>
-				    <c:when test="${userNameInSession == null}">
-				    	<td><a href="login.jsp">登录</a></td>
-				    </c:when>
-				    <c:otherwise>
-				    	<td><%=userLogin.getUserName() %>已登录，注销</td>
-				    </c:otherwise>
-				</c:choose>
+			    <td><jsp:include page="userLoginBar.jsp"></jsp:include></td>
 			    
 		  	</tr>
         </table>

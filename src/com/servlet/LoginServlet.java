@@ -53,9 +53,9 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	    else {
-	    	out.println("登录失败!");
-	    	out.println("<a href='../login.jsp'>返回登录界面</a>");
-	    	out.println("<a href='../index.jsp'>返回首页</a>");
+	    	out.println("登录失败!<br>");
+	    	out.println("<a href='../login.jsp'>返回登录界面</a><br>");
+	    	out.println("<a href='../index.jsp'>返回首页</a><br>");
 		}
 	    
 	}
