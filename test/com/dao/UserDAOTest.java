@@ -30,4 +30,15 @@ public class UserDAOTest {
 		System.out.println(UserDAO.getUserById(2));
 	}
 
+	@Test
+	public void testGetUserByName() {
+		System.out.println(UserDAO.getUserByName("user2"));
+	}
+	
+	@Test
+	public void testTryLogin() {
+		assertTrue(UserDAO.tryLogin("user1", "111"));
+		//assertTrue(UserDAO.tryLogin("user1", "222"));
+		//assertTrue(UserDAO.tryLogin("user10", "111"));
+	}
 }

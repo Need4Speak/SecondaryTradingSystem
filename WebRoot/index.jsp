@@ -48,18 +48,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		User userLogin = new User();
   	 %>
   	<% 
-  		int userIdInSession;
-  		if(session.getAttribute("userId")!=null){
-  			userIdInSession = Integer.parseInt((String)request.getSession().getAttribute("userId"));
+  		String userNameInSession;
+  		if(session.getAttribute("userName")!=null){
+  			userNameInSession = (String)request.getSession().getAttribute("userName");
   			// Get log in user's obejct.
-  			userLogin = UserDAO.getUserById(userIdInSession);
+  			userLogin = UserDAO.getUserByName(userNameInSession);
   		}
   		else {
-  			userIdInSession = -1;
+  			userNameInSession = null;
   		}
   	%>
-  	<!-- Set jstl var userIdInSession -->
-  	<c:set var="userIdInSession" value="<%=userIdInSession %>"/>
+  	<!-- Set jstl var userNameInSession -->
+  	<c:set var="userNameInSession" value="<%=userNameInSession %>"/>
   	
     <div  class="divcssTop">二手交易网站</div>
     <div  class="divcssMiddle">
@@ -67,8 +67,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<tr>
 			    <td >最新</td>
 			    <c:choose>
-				    <c:when test="${userIdInSession == -1}">
-				    	<td>登录</td>
+				    <c:when test="${userNameInSession == null}">
+				    	<td><a href="login.jsp">登录</a></td>
 				    </c:when>
 				    <c:otherwise>
 				    	<td><%=userLogin.getUserName() %>已登录，注销</td>
