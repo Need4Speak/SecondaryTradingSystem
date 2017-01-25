@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	if(eachGoodPictures.length < 2) {
 	        		goodPicturesList.add("noGoodPictures.jpg");
 	        	}
-	            System.out.println(eachGood);
+	            //System.out.println(eachGood);
 	    %>
 	     
 	    <a href="servlet/OderInfoServlet?goodId=<%=eachGood.getGoodId()%>">    

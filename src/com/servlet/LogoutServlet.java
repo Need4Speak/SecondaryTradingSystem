@@ -7,10 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.dao.UserDAO;
-
-public class LoginServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
@@ -40,26 +39,35 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		response.setContentType("text/html");
 		request.setCharacterEncoding("utf-8");
 	    response.setCharacterEncoding("utf-8");
-	    PrintWriter out = response.getWriter();
+	    
+	    HttpSession session = request.getSession(false);
 	    String userName = request.getParameter("userName").trim();
-	    String password = request.getParameter("password").trim();
-	    boolean loginCondition = UserDAO.tryLogin(userName, password);
-	    if (loginCondition) {
-			request.getSession().setAttribute("userName", userName);
-			//request.getRequestDispatcher("/index.jsp").forward(request, response);
-			response.sendRedirect("../index.jsp");
-		}
-	    else {
-	    	out.println("登录失败!<br>");
-	    	out.println("<a href='../login.jsp'>返回登录界面</a><br>");
-	    	out.println("<a href='../index.jsp'>返回首页</a><br>");
-	    	out.close();
+	    // preBasePath store the page path who call this servlet.
+	    //String preBasePath = request.getParameter("basePath");
+	    String preBasePath = "../index.jsp";
+	    
+        if(session == null){  
+        	System.out.println("session is null in Logout Servlet."); 
+            return;  
+        } 
+        else {
+			session.invalidate();
+			
 		}
 	    
+        response.sendRedirect(preBasePath);  
+//	    System.out.println("username: " + request.getParameter("userName"));
+//	    System.out.println("Session id in LogoutServlet: " + request.getSession().getId());
+//	    //String userName = request.getParameter("userName").trim();
+//	    System.out.println("Str userName: " + userName + "Str userName length:" + userName.length());
+//	    request.getSession().removeAttribute(userName);
+//	    System.out.println("username after remove: " + request.getParameter("userName"));
+//	    //request.getRequestDispatcher("/"+request.getParameter("fileName")).forward(request, response);
+//	    response.sendRedirect("../"+request.getParameter("fileName"));
 	}
 
 }

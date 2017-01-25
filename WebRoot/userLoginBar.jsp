@@ -4,6 +4,9 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String fileName=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1);
+fileName = "index.jsp";
+System.out.println("fileName: " + fileName);
 %>
   	<%!
   		User userLogin = new User();
@@ -26,6 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<a href="login.jsp">登录</a>
 	    </c:when>
 	    <c:otherwise>
-	    	<%=userLogin.getUserName() %>已登录，注销
+	    	<%=userLogin.getUserName() %>已登录，<a href="<%=basePath%>servlet/LogoutServlet?userName=<%=userNameInSession %>&fileName=<%=fileName %>">注销</a>
 	    </c:otherwise>
 	</c:choose>  		
